@@ -1,7 +1,7 @@
 package com.chronicle.logging.api;
 
 import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.config.ChronicleConfiguration;
+import com.chronicle.logging.config.RivetConfiguration;
 import com.chronicle.logging.core.LogEntry;
 import com.chronicle.logging.util.JsonFormatter;
 import com.chronicle.logging.util.TimestampProvider;
@@ -16,15 +16,15 @@ import java.util.*;
  * Core logger implementation that handles JSON formatting and output.
  * Manages context, tags, and formatting for all log entries.
  */
-public class ChronicleLogger {
+public class RivetLogger {
     
     private final String name;
-    private final ChronicleConfiguration configuration;
+    private final RivetConfiguration configuration;
     private final JsonFormatter jsonFormatter;
     private final TimestampProvider timestampProvider;
     private final ThreadContext threadContext;
     
-    public ChronicleLogger(String name, ChronicleConfiguration configuration) {
+    public RivetLogger(String name, RivetConfiguration configuration) {
         this.name = name;
         this.configuration = configuration;
         this.jsonFormatter = new JsonFormatter(configuration);

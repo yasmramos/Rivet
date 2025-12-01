@@ -1,14 +1,14 @@
-# Chronicle Logging Library
+# Rivet Logging Library
 
 **High-performance logging library with fluent API and chapter-based narratives for Java 11+**
 
-Chronicle is a modern logging library that combines the performance of established logging frameworks with an innovative fluent API and narrative logging capabilities through the "chapter" pattern.
+Rivet is a modern logging library that combines the performance of established logging frameworks with an innovative fluent API and narrative logging capabilities through the "chapter" pattern.
 
 ## 🚀 Key Features
 
 ### 1. **Fluent API** - Clean, type-safe logging
 ```java
-Chronicle.info()
+Rivet.info()
     .message("User {user} logged in")
     .arg("alice")
     .context("userId", "12345")
@@ -20,7 +20,7 @@ Chronicle.info()
 
 ### 2. **Chapter Pattern** - Narrative logging with automatic timing
 ```java
-try (ChronicleChapter chapter = Chronicle.beginChapter("Payment Processing")) {
+try (RivetChapter chapter = Rivet.beginChapter("Payment Processing")) {
     chapter.record("validation", validationDetails);
     chapter.record("processing", paymentDetails);
     chapter.record("confirmation", confirmationDetails);
@@ -30,8 +30,8 @@ try (ChronicleChapter chapter = Chronicle.beginChapter("Payment Processing")) {
 
 ### 3. **SLF4J Bridge** - Seamless migration
 ```java
-Logger slf4jLogger = ChronicleSLF4JLogger.Factory.getLogger(MyClass.class);
-slf4jLogger.info("Using Chronicle as SLF4J backend"); // No code changes needed!
+Logger slf4jLogger = RivetSLF4JLogger.Factory.getLogger(MyClass.class);
+slf4jLogger.info("Using Rivet as SLF4J backend"); // No code changes needed!
 ```
 
 ### 4. **JSON Output** - Structured logging by default
@@ -63,29 +63,29 @@ slf4jLogger.info("Using Chronicle as SLF4J backend"); // No code changes needed!
 ### Maven
 ```xml
 <dependency>
-    <groupId>com.chronicle.logging</groupId>
-    <artifactId>chronicle-core</artifactId>
+    <groupId>io.github.yasmramos</groupId>
+    <artifactId>rivet-logging</artifactId>
     <version>1.0.0</version>
 </dependency>
 ```
 
 ### Gradle
 ```gradle
-implementation 'com.chronicle.logging:chronicle-core:1.0.0'
+implementation 'io.github.yasmramos:rivet-logging:1.0.0'
 ```
 
 ## 🛠️ Quick Start
 
 ### Basic Setup
 ```java
-import com.chronicle.logging.Chronicle;
-import com.chronicle.logging.config.ChronicleConfiguration;
+import com.chronicle.logging.Rivet;
+import com.chronicle.logging.config.RivetConfiguration;
 import com.chronicle.logging.config.LogLevel;
 
 public class MyApp {
     public static void main(String[] args) {
-        // Configure Chronicle
-        ChronicleConfiguration config = ChronicleConfiguration.Builder.create()
+        // Configure Rivet
+        RivetConfiguration config = RivetConfiguration.Builder.create()
             .minLevel(LogLevel.INFO)
             .prettyPrint(true)
             .applicationName("MyApp")
@@ -93,7 +93,7 @@ public class MyApp {
             .build();
         
         // Start logging!
-        Chronicle.info().message("Application started").log();
+        Rivet.info().message("Application started").log();
     }
 }
 ```

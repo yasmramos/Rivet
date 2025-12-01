@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Configuration class for Chronicle logging system.
+ * Configuration class for Rivet logging system.
  * Manages global settings, output sinks, and formatting options.
  */
-public class ChronicleConfiguration {
+public class RivetConfiguration {
     
     private LogLevel minimumLevel = LogLevel.INFO;
     private boolean prettyPrint = false;
@@ -24,7 +24,7 @@ public class ChronicleConfiguration {
     private final List<LogSink> sinks = new CopyOnWriteArrayList<>();
     
     // Default constructor
-    public ChronicleConfiguration() {
+    public RivetConfiguration() {
         // Add default console sink
         sinks.add(new LogSink.ConsoleSink());
     }
@@ -32,7 +32,7 @@ public class ChronicleConfiguration {
     /**
      * Sets the minimum log level to enable.
      */
-    public ChronicleConfiguration setMinLevel(LogLevel level) {
+    public RivetConfiguration setMinLevel(LogLevel level) {
         this.minimumLevel = level;
         return this;
     }
@@ -40,7 +40,7 @@ public class ChronicleConfiguration {
     /**
      * Sets whether to format JSON output with pretty printing.
      */
-    public ChronicleConfiguration setPrettyPrint(boolean prettyPrint) {
+    public RivetConfiguration setPrettyPrint(boolean prettyPrint) {
         this.prettyPrint = prettyPrint;
         return this;
     }
@@ -48,7 +48,7 @@ public class ChronicleConfiguration {
     /**
      * Sets whether to include hostname in log entries.
      */
-    public ChronicleConfiguration setIncludeHostname(boolean includeHostname) {
+    public RivetConfiguration setIncludeHostname(boolean includeHostname) {
         this.includeHostname = includeHostname;
         return this;
     }
@@ -56,7 +56,7 @@ public class ChronicleConfiguration {
     /**
      * Sets whether to output debug logs to console.
      */
-    public ChronicleConfiguration setDebugToConsole(boolean debugToConsole) {
+    public RivetConfiguration setDebugToConsole(boolean debugToConsole) {
         this.debugToConsole = debugToConsole;
         return this;
     }
@@ -64,7 +64,7 @@ public class ChronicleConfiguration {
     /**
      * Sets the application name.
      */
-    public ChronicleConfiguration setApplicationName(String applicationName) {
+    public RivetConfiguration setApplicationName(String applicationName) {
         this.applicationName = applicationName;
         return this;
     }
@@ -72,7 +72,7 @@ public class ChronicleConfiguration {
     /**
      * Sets the application version.
      */
-    public ChronicleConfiguration setApplicationVersion(String applicationVersion) {
+    public RivetConfiguration setApplicationVersion(String applicationVersion) {
         this.applicationVersion = applicationVersion;
         return this;
     }
@@ -80,7 +80,7 @@ public class ChronicleConfiguration {
     /**
      * Sets the environment name (e.g., "development", "production").
      */
-    public ChronicleConfiguration setEnvironment(String environment) {
+    public RivetConfiguration setEnvironment(String environment) {
         this.environment = environment;
         return this;
     }
@@ -88,7 +88,7 @@ public class ChronicleConfiguration {
     /**
      * Sets the timezone for timestamps.
      */
-    public ChronicleConfiguration setTimezone(ZoneId timezone) {
+    public RivetConfiguration setTimezone(ZoneId timezone) {
         this.timezone = timezone;
         return this;
     }
@@ -96,7 +96,7 @@ public class ChronicleConfiguration {
     /**
      * Adds a log sink.
      */
-    public ChronicleConfiguration addSink(LogSink sink) {
+    public RivetConfiguration addSink(LogSink sink) {
         if (sink != null) {
             sinks.add(sink);
         }
@@ -106,7 +106,7 @@ public class ChronicleConfiguration {
     /**
      * Removes a log sink.
      */
-    public ChronicleConfiguration removeSink(LogSink sink) {
+    public RivetConfiguration removeSink(LogSink sink) {
         sinks.remove(sink);
         return this;
     }
@@ -114,7 +114,7 @@ public class ChronicleConfiguration {
     /**
      * Clears all log sinks.
      */
-    public ChronicleConfiguration clearSinks() {
+    public RivetConfiguration clearSinks() {
         sinks.clear();
         return this;
     }
@@ -160,7 +160,7 @@ public class ChronicleConfiguration {
      * Builder pattern for creating configurations.
      */
     public static class Builder {
-        private ChronicleConfiguration config = new ChronicleConfiguration();
+        private RivetConfiguration config = new RivetConfiguration();
         
         public static Builder create() {
             return new Builder();
@@ -211,7 +211,7 @@ public class ChronicleConfiguration {
             return this;
         }
         
-        public ChronicleConfiguration build() {
+        public RivetConfiguration build() {
             return config;
         }
     }

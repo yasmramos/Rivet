@@ -1,9 +1,9 @@
 package com.chronicle.logging.api;
 
-import com.chronicle.logging.bridge.ChronicleSLF4JLogger;
-import com.chronicle.logging.config.ChronicleConfiguration;
+import com.chronicle.logging.bridge.RivetSLF4JLogger;
+import com.chronicle.logging.config.RivetConfiguration;
 import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.core.Chronicle;
+import com.chronicle.logging.core.Rivet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -14,27 +14,27 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Tests for ChronicleChapter functionality.
+ * Tests for RivetChapter functionality.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ChronicleChapterTest {
+class RivetChapterTest {
     
-    private ChronicleLogger logger;
+    private RivetLogger logger;
     
     @BeforeEach
     void setUp() {
-        ChronicleConfiguration config = new ChronicleConfiguration();
+        RivetConfiguration config = new RivetConfiguration();
         config.setMinLevel(LogLevel.DEBUG);
         config.setPrettyPrint(false);
         config.setDebugToConsole(false); // Disable console output for tests
         
-        logger = new ChronicleLogger("chapter-test", config);
+        logger = new RivetLogger("chapter-test", config);
     }
     
     @Test
     void testChapterCreation() {
         assertDoesNotThrow(() -> {
-            try (ChronicleChapter chapter = new ChronicleChapter("test-chapter", logger, LogLevel.INFO, 
+            try (RivetChapter chapter = new RivetChapter("test-chapter", logger, LogLevel.INFO, 
                                                                 null, null, null, null)) {
                 assertNotNull(chapter);
                 assertEquals("test-chapter", chapter.getChapterName());
@@ -44,7 +44,7 @@ class ChronicleChapterTest {
     
     @Test
     void testChapterRecording() {
-        try (ChronicleChapter chapter = new ChronicleChapter("test-recording", logger, LogLevel.INFO,
+        try (RivetChapter chapter = new RivetChapter("test-recording", logger, LogLevel.INFO,
                                                             null, null, null, null)) {
             
             // Record some steps
@@ -60,10 +60,10 @@ class ChronicleChapterTest {
     
     @Test
     void testChapterStepRecording() {
-        try (ChronicleChapter chapter = new ChronicleChapter("test-step", logger, LogLevel.INFO,
+        try (RivetChapter chapter = new RivetChapter("test-step", logger, LogLevel.INFO,
                                                             null, null, null, null)) {
             
-            ChronicleChapter.Step step = chapter.step("validation");
+            RivetChapter.Step step = chapter.step("validation");
             assertNotNull(step);
             
             assertDoesNotThrow(() -> {
@@ -75,7 +75,7 @@ class ChronicleChapterTest {
     
     @Test
     void testChapterMultipleRecords() {
-        try (ChronicleChapter chapter = new ChronicleChapter("test-multiple", logger, LogLevel.INFO,
+        try (RivetChapter chapter = new RivetChapter("test-multiple", logger, LogLevel.INFO,
                                                             null, null, null, null)) {
             
             Map<String, Object> records = Map.of(
@@ -92,7 +92,7 @@ class ChronicleChapterTest {
     
     @Test
     void testChapterContextAndTags() {
-        try (ChronicleChapter chapter = new ChronicleChapter("test-context", logger, LogLevel.INFO,
+        try (RivetChapter chapter = new RivetChapter("test-context", logger, LogLevel.INFO,
                                                             null, null, null, null)) {
             
             assertDoesNotThrow(() -> {
@@ -106,7 +106,7 @@ class ChronicleChapterTest {
     
     @Test
     void testChapterTiming() {
-        try (ChronicleChapter chapter = new ChronicleChapter("test-timing", logger, LogLevel.INFO,
+        try (RivetChapter chapter = new RivetChapter("test-timing", logger, LogLevel.INFO,
                                                             null, null, null, null)) {
             
             // Wait a short time to ensure timing works
@@ -124,7 +124,7 @@ class ChronicleChapterTest {
     
     @Test
     void testChapterClosedState() {
-        ChronicleChapter chapter = new ChronicleChapter("test-closed", logger, LogLevel.INFO,
+        RivetChapter chapter = new RivetChapter("test-closed", logger, LogLevel.INFO,
                                                        null, null, null, null);
         
         chapter.close();
@@ -145,7 +145,7 @@ class ChronicleChapterTest {
     
     @Test
     void testChapterDoubleClose() {
-        ChronicleChapter chapter = new ChronicleChapter("test-double-close", logger, LogLevel.INFO,
+        RivetChapter chapter = new RivetChapter("test-double-close", logger, LogLevel.INFO,
                                                        null, null, null, null);
         
         assertDoesNotThrow(() -> {
@@ -157,7 +157,7 @@ class ChronicleChapterTest {
     @Test
     void testChapterWithFluentApi() {
         assertDoesNotThrow(() -> {
-            ChronicleChapter chapter = Chronicle.info()
+            RivetChapter chapter = Rivet.info()
                 .loggerName("test-fluent")
                 .message("Chapter started")
                 .arg("test")

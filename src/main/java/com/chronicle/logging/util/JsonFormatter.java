@@ -1,6 +1,6 @@
 package com.chronicle.logging.util;
 
-import com.chronicle.logging.config.ChronicleConfiguration;
+import com.chronicle.logging.config.RivetConfiguration;
 import com.chronicle.logging.core.LogEntry;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,10 +15,10 @@ import java.util.Map;
  */
 public class JsonFormatter {
     
-    private final ChronicleConfiguration configuration;
+    private final RivetConfiguration configuration;
     private final DateTimeFormatter timestampFormatter;
     
-    public JsonFormatter(ChronicleConfiguration configuration) {
+    public JsonFormatter(RivetConfiguration configuration) {
         this.configuration = configuration;
         this.timestampFormatter = DateTimeFormatter.ISO_INSTANT;
     }

@@ -13,16 +13,16 @@ import java.util.concurrent.ConcurrentHashMap;
  * Implements try-with-resources pattern for automatic logging on close.
  * 
  * Example usage:
- * try (ChronicleChapter chapter = Chronicle.beginChapter("Payment Processing")) {
+ * try (RivetChapter chapter = Rivet.beginChapter("Payment Processing")) {
  *     chapter.record("validation", validationDetails);
  *     chapter.record("processing", paymentDetails);
  *     // Auto-log al final con timing y resumen
  * }
  */
-public class ChronicleChapter implements AutoCloseable {
+public class RivetChapter implements AutoCloseable {
     
     private final String chapterName;
-    private final ChronicleLogger logger;
+    private final RivetLogger logger;
     private final LogLevel level;
     private final String startMessage;
     private final Object[] startArgs;
@@ -33,9 +33,9 @@ public class ChronicleChapter implements AutoCloseable {
     private final Map<String, Object> records;
     private boolean closed = false;
     
-    public ChronicleChapter(String chapterName, ChronicleLogger logger, LogLevel level, 
-                           String startMessage, Object[] startArgs, 
-                           Map<String, Object> context, Map<String, String> tags) {
+    public RivetChapter(String chapterName, RivetLogger logger, LogLevel level, 
+                        String startMessage, Object[] startArgs, 
+                        Map<String, Object> context, Map<String, String> tags) {
         this.chapterName = chapterName;
         this.logger = logger;
         this.level = level;
@@ -53,7 +53,7 @@ public class ChronicleChapter implements AutoCloseable {
     /**
      * Records a step in the chapter with name and data.
      */
-    public ChronicleChapter record(String stepName, Object stepData) {
+    public RivetChapter record(String stepName, Object stepData) {
         if (closed) {
             throw new IllegalStateException("Cannot record to closed chapter: " + chapterName);
         }
@@ -65,7 +65,7 @@ public class ChronicleChapter implements AutoCloseable {
     /**
      * Records multiple steps at once.
      */
-    public ChronicleChapter records(Map<String, Object> steps) {
+    public RivetChapter records(Map<String, Object> steps) {
         if (closed) {
             throw new IllegalStateException("Cannot record to closed chapter: " + chapterName);
         }
@@ -77,7 +77,7 @@ public class ChronicleChapter implements AutoCloseable {
     /**
      * Adds context data to the chapter.
      */
-    public ChronicleChapter context(String key, Object value) {
+    public RivetChapter context(String key, Object value) {
         if (closed) {
             throw new IllegalStateException("Cannot modify closed chapter: " + chapterName);
         }
@@ -89,7 +89,7 @@ public class ChronicleChapter implements AutoCloseable {
     /**
      * Adds a tag to the chapter.
      */
-    public ChronicleChapter tag(String tag, String value) {
+    public RivetChapter tag(String tag, String value) {
         if (closed) {
             throw new IllegalStateException("Cannot modify closed chapter: " + chapterName);
         }
@@ -172,19 +172,19 @@ public class ChronicleChapter implements AutoCloseable {
      * Inner class for step-by-step recording with method chaining.
      */
     public static class Step {
-        private final ChronicleChapter chapter;
+        private final RivetChapter chapter;
         private final String stepName;
         
-        public Step(ChronicleChapter chapter, String stepName) {
+        public Step(RivetChapter chapter, String stepName) {
             this.chapter = chapter;
             this.stepName = stepName;
         }
         
-        public ChronicleChapter withData(Object data) {
+        public RivetChapter withData(Object data) {
             return chapter.record(stepName, data);
         }
         
-        public ChronicleChapter withMessage(String message, Object... args) {
+        public RivetChapter withMessage(String message, Object... args) {
             return chapter.record(stepName, 
                 message != null ? String.format(message, args) : message);
         }

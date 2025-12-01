@@ -1,51 +1,51 @@
 package com.chronicle.logging.core;
 
-import com.chronicle.logging.api.ChronicleLogger;
+import com.chronicle.logging.api.RivetLogger;
 import com.chronicle.logging.api.FluentLoggerBuilder;
 import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.config.ChronicleConfiguration;
+import com.chronicle.logging.config.RivetConfiguration;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Main entry point for Chronicle Logging Library.
+ * Main entry point for Rivet Logging Library.
  * Provides fluent API for logging with type-safe argument interpolation.
  * 
  * Example usage:
- * Chronicle.info()
+ * Rivet.info()
  *     .message("User {user} logged in")
  *     .arg("alice")
  *     .context("userId", "12345")
  *     .tag("security", "auth")
  *     .log();
  */
-public class Chronicle {
+public class Rivet {
     
-    private static final ChronicleConfiguration DEFAULT_CONFIG = new ChronicleConfiguration();
-    private static final Chronicle INSTANCE = new Chronicle();
+    private static final RivetConfiguration DEFAULT_CONFIG = new RivetConfiguration();
+    private static final Rivet INSTANCE = new Rivet();
     
-    private final ChronicleLogger logger;
-    private final ChronicleConfiguration configuration;
-    private final Map<String, ChronicleLogger> namedLoggers;
+    private final RivetLogger logger;
+    private final RivetConfiguration configuration;
+    private final Map<String, RivetLogger> namedLoggers;
     
-    private Chronicle() {
+    private Rivet() {
         this.configuration = DEFAULT_CONFIG;
-        this.logger = new ChronicleLogger("default", configuration);
+        this.logger = new RivetLogger("default", configuration);
         this.namedLoggers = new ConcurrentHashMap<>();
     }
     
     /**
      * Creates a new logger for the specified class.
      */
-    public static ChronicleLogger forClass(Class<?> clazz) {
+    public static RivetLogger forClass(Class<?> clazz) {
         return INSTANCE.createLogger(clazz.getName());
     }
     
     /**
      * Creates a new logger for the specified name.
      */
-    public static ChronicleLogger getLogger(String name) {
+    public static RivetLogger getLogger(String name) {
         return INSTANCE.createLogger(name);
     }
     
@@ -84,12 +84,12 @@ public class Chronicle {
         return new FluentLoggerBuilder(LogLevel.TRACE, INSTANCE);
     }
     
-    ChronicleLogger createLogger(String name) {
+    RivetLogger createLogger(String name) {
         return namedLoggers.computeIfAbsent(name, key -> 
-            new ChronicleLogger(key, configuration));
+            new RivetLogger(key, configuration));
     }
     
-    public static ChronicleConfiguration getConfiguration() {
+    public static RivetConfiguration getConfiguration() {
         return INSTANCE.configuration;
     }
 }

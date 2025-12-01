@@ -1,7 +1,7 @@
 package com.chronicle.logging.core;
 
-import com.chronicle.logging.api.ChronicleLogger;
-import com.chronicle.logging.config.ChronicleConfiguration;
+import com.chronicle.logging.api.RivetLogger;
+import com.chronicle.logging.config.RivetConfiguration;
 import com.chronicle.logging.config.LogLevel;
 import com.chronicle.logging.util.JsonFormatter;
 import com.chronicle.logging.util.ThreadContext;
@@ -15,24 +15,24 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Tests for ChronicleLogger core functionality.
+ * Tests for RivetLogger core functionality.
  */
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class ChronicleLoggerTest {
+class RivetLoggerTest {
     
-    private ChronicleLogger logger;
-    private ChronicleConfiguration config;
+    private RivetLogger logger;
+    private RivetConfiguration config;
     private JsonFormatter formatter;
     
     @BeforeEach
     void setUp() {
-        config = new ChronicleConfiguration();
+        config = new RivetConfiguration();
         config.setMinLevel(LogLevel.TRACE); // Enable all levels for testing
         config.setPrettyPrint(true);
         config.setDebugToConsole(false); // Disable console output for tests
         
         formatter = new JsonFormatter(config);
-        logger = new ChronicleLogger("test-logger", config);
+        logger = new RivetLogger("test-logger", config);
     }
     
     @Test

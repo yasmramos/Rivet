@@ -1,24 +1,24 @@
 package com.chronicle.logging;
 
-import com.chronicle.logging.api.ChronicleChapter;
-import com.chronicle.logging.bridge.ChronicleSLF4JLogger;
-import com.chronicle.logging.config.ChronicleConfiguration;
+import com.chronicle.logging.api.RivetChapter;
+import com.chronicle.logging.bridge.RivetSLF4JLogger;
+import com.chronicle.logging.config.RivetConfiguration;
 import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.core.Chronicle;
+import com.chronicle.logging.core.Rivet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Map;
 
 /**
- * Examples demonstrating Chronicle logging capabilities.
+ * Examples demonstrating Rivet logging capabilities.
  * Shows fluent API, chapter pattern, and SLF4J bridge usage.
  */
-public class ChronicleExamples {
+public class RivetExamples {
     
     public static void main(String[] args) {
-        // Configure Chronicle for production use
-        configureChronicle();
+        // Configure Rivet for production use
+        configureRivet();
         
         // Run examples
         exampleFluentAPI();
@@ -27,17 +27,17 @@ public class ChronicleExamples {
         exampleComplexScenarios();
     }
     
-    private static void configureChronicle() {
-        ChronicleConfiguration config = ChronicleConfiguration.Builder.create()
+    private static void configureRivet() {
+        RivetConfiguration config = RivetConfiguration.Builder.create()
             .minLevel(LogLevel.DEBUG)
             .prettyPrint(true)
-            .applicationName("ChronicleExamples")
+            .applicationName("RivetExamples")
             .applicationVersion("1.0.0")
             .environment("development")
             .build();
         
-        // Note: In real usage, you would apply this config to Chronicle
-        System.out.println("Chronicle configured for development debugging");
+        // Note: In real usage, you would apply this config to Rivet
+        System.out.println("Rivet configured for development debugging");
     }
     
     /**
@@ -47,12 +47,12 @@ public class ChronicleExamples {
         System.out.println("\n=== Example 1: Fluent API ===");
         
         // Basic info logging
-        Chronicle.info()
+        Rivet.info()
             .message("Application started successfully")
             .log();
         
         // Logging with argument interpolation
-        Chronicle.info()
+        Rivet.info()
             .message("User {user} logged in from {location}")
             .arg("alice")
             .arg("Madrid, Spain")
@@ -63,7 +63,7 @@ public class ChronicleExamples {
             .log();
         
         // Debug logging with multiple arguments
-        Chronicle.debug()
+        Rivet.debug()
             .message("Processing request {requestId} for user {user}")
             .args("req-456", "bob")
             .context("method", "POST")
@@ -73,7 +73,7 @@ public class ChronicleExamples {
             .log();
         
         // Warning with exception context
-        Chronicle.warn()
+        Rivet.warn()
             .message("Rate limit exceeded for user {user}")
             .arg("alice")
             .context("attempts", 5)
@@ -83,7 +83,7 @@ public class ChronicleExamples {
             .log();
         
         // Error logging with detailed context
-        Chronicle.error()
+        Rivet.error()
             .message("Database connection failed")
             .context("host", "db.example.com")
             .context("port", 5432)
@@ -100,7 +100,7 @@ public class ChronicleExamples {
         System.out.println("\n=== Example 2: Chapter Pattern ===");
         
         // Payment processing chapter
-        try (ChronicleChapter chapter = Chronicle.info().beginChapter("Payment Processing")) {
+        try (RivetChapter chapter = Rivet.info().beginChapter("Payment Processing")) {
             // Record step-by-step progress
             chapter.record("validation", Map.of(
                 "cardValid", true,
@@ -124,7 +124,7 @@ public class ChronicleExamples {
         }
         
         // User registration chapter
-        try (ChronicleChapter chapter = Chronicle.debug().beginChapter("User Registration")) {
+        try (RivetChapter chapter = Rivet.debug().beginChapter("User Registration")) {
             chapter.step("validate_input").withData("All required fields present");
             chapter.record("email_check", "Email not in use");
             chapter.record("password_strength", "Strong password");
@@ -135,7 +135,7 @@ public class ChronicleExamples {
         }
         
         // Batch processing chapter
-        try (ChronicleChapter chapter = Chronicle.warn().beginChapter("Batch Data Processing")) {
+        try (RivetChapter chapter = Rivet.warn().beginChapter("Batch Data Processing")) {
             chapter.context("batchId", "batch-20241202-001");
             chapter.context("totalRecords", 10000);
             
@@ -158,7 +158,7 @@ public class ChronicleExamples {
         System.out.println("\n=== Example 3: SLF4J Bridge ===");
         
         // Create SLF4J logger backed by Chronicle
-        Logger slf4jLogger = ChronicleSLF4JLogger.Factory.getLogger(ChronicleExamples.class);
+        Logger slf4jLogger = RivetSLF4JLogger.Factory.getLogger(RivetExamples.class);
         
         // All standard SLF4J methods work transparently
         slf4jLogger.info("Using Chronicle as SLF4J backend");
@@ -167,7 +167,7 @@ public class ChronicleExamples {
         slf4jLogger.error("Error occurred during data processing", new RuntimeException("Test exception"));
         
         // Example from existing codebase - no changes needed!
-        Logger existingCodeLogger = ChronicleSLF4JLogger.Factory.getLogger("LegacyModule");
+        Logger existingCodeLogger = RivetSLF4JLogger.Factory.getLogger("LegacyModule");
         existingCodeLogger.info("This is existing SLF4J code that now uses Chronicle");
         existingCodeLogger.debug("Legacy debug: Connection pool size: {}", 20);
     }
@@ -179,7 +179,7 @@ public class ChronicleExamples {
         System.out.println("\n=== Example 4: Complex Scenarios ===");
         
         // Multi-level logging with same context
-        Chronicle.debug()
+        Rivet.debug()
             .message("Starting complex operation")
             .context("operationId", "op-123")
             .context("userId", "user-456")
@@ -187,7 +187,7 @@ public class ChronicleExamples {
             .log();
         
         // Later in the same operation
-        Chronicle.info()
+        Rivet.info()
             .message("Complex operation step 1 completed")
             .context("operationId", "op-123")
             .context("userId", "user-456")
@@ -197,11 +197,11 @@ public class ChronicleExamples {
             .log();
         
         // Nested chapters for complex workflows
-        try (ChronicleChapter outerChapter = Chronicle.info().beginChapter("Data Synchronization")) {
+        try (RivetChapter outerChapter = Rivet.info().beginChapter("Data Synchronization")) {
             outerChapter.context("syncId", "sync-789");
             
             // Inner chapter for database sync
-            try (ChronicleChapter dbChapter = Chronicle.debug().beginChapter("Database Sync")) {
+            try (RivetChapter dbChapter = Rivet.debug().beginChapter("Database Sync")) {
                 dbChapter.record("connection", "Established");
                 dbChapter.record("queries", "Executed 15 queries");
                 dbChapter.record("records", "Synchronized 1,250 records");
@@ -209,7 +209,7 @@ public class ChronicleExamples {
             }
             
             // Inner chapter for external API sync
-            try (ChronicleChapter apiChapter = Chronicle.debug().beginChapter("External API Sync")) {
+            try (RivetChapter apiChapter = Rivet.debug().beginChapter("External API Sync")) {
                 apiChapter.record("endpoints", 3);
                 apiChapter.record("success", 2);
                 apiChapter.record("failed", 1);
@@ -220,7 +220,7 @@ public class ChronicleExamples {
         }
         
         // Performance monitoring
-        Chronicle.info()
+        Rivet.info()
             .message("System performance metrics collected")
             .context("cpu_usage", "45%")
             .context("memory_usage", "2.1GB")

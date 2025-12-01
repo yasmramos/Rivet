@@ -1,28 +1,28 @@
 package com.chronicle.logging.bridge;
 
-import com.chronicle.logging.api.ChronicleLogger;
+import com.chronicle.logging.api.RivetLogger;
 import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.core.Chronicle;
+import com.chronicle.logging.core.Rivet;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.MessageFormatter;
 
 /**
- * Chronicle implementation of SLF4J Logger interface.
- * Allows Chronicle to be used as a backend for SLF4J.
+ * Rivet implementation of SLF4J Logger interface.
+ * Allows Rivet to be used as a backend for SLF4J.
  * 
  * Example usage:
- * Logger slf4jLogger = ChronicleSLF4JLogger.getLogger(MyClass.class);
- * slf4jLogger.info("Usando Chronicle por detrás");
+ * Logger slf4jLogger = RivetSLF4JLogger.getLogger(MyClass.class);
+ * slf4jLogger.info("Usando Rivet por detrás");
  */
-public class ChronicleSLF4JLogger implements Logger {
+public class RivetSLF4JLogger implements Logger {
     
-    private final ChronicleLogger chronicleLogger;
+    private final RivetLogger rivetLogger;
     private final String name;
     
-    ChronicleSLF4JLogger(String name) {
+    RivetSLF4JLogger(String name) {
         this.name = name;
-        this.chronicleLogger = Chronicle.getLogger(name);
+        this.rivetLogger = Rivet.getLogger(name);
     }
     
     @Override
@@ -32,7 +32,7 @@ public class ChronicleSLF4JLogger implements Logger {
     
     @Override
     public boolean isTraceEnabled() {
-        return chronicleLogger.isLevelEnabled(LogLevel.TRACE);
+        return rivetLogger.isLevelEnabled(LogLevel.TRACE);
     }
     
     @Override
@@ -92,7 +92,7 @@ public class ChronicleSLF4JLogger implements Logger {
     
     @Override
     public boolean isDebugEnabled() {
-        return chronicleLogger.isLevelEnabled(LogLevel.DEBUG);
+        return rivetLogger.isLevelEnabled(LogLevel.DEBUG);
     }
     
     @Override
@@ -152,7 +152,7 @@ public class ChronicleSLF4JLogger implements Logger {
     
     @Override
     public boolean isInfoEnabled() {
-        return chronicleLogger.isLevelEnabled(LogLevel.INFO);
+        return rivetLogger.isLevelEnabled(LogLevel.INFO);
     }
     
     @Override
@@ -212,7 +212,7 @@ public class ChronicleSLF4JLogger implements Logger {
     
     @Override
     public boolean isWarnEnabled() {
-        return chronicleLogger.isLevelEnabled(LogLevel.WARN);
+        return rivetLogger.isLevelEnabled(LogLevel.WARN);
     }
     
     @Override
@@ -272,7 +272,7 @@ public class ChronicleSLF4JLogger implements Logger {
     
     @Override
     public boolean isErrorEnabled() {
-        return chronicleLogger.isLevelEnabled(LogLevel.ERROR);
+        return rivetLogger.isLevelEnabled(LogLevel.ERROR);
     }
     
     @Override
@@ -346,15 +346,15 @@ public class ChronicleSLF4JLogger implements Logger {
         
         // Add marker as a tag if present
         if (marker != null) {
-            chronicleLogger.addTag("marker", marker.getName());
+            rivetLogger.addTag("marker", marker.getName());
         }
         
         // Log the formatted message
-        chronicleLogger.log(level, formattedMessage, (Object[]) null);
+        rivetLogger.log(level, formattedMessage, (Object[]) null);
     }
     
     /**
-     * Factory class for creating Chronicle SLF4J loggers.
+     * Factory class for creating Rivet SLF4J loggers.
      */
     public static class Factory {
         
@@ -363,17 +363,17 @@ public class ChronicleSLF4JLogger implements Logger {
         }
         
         /**
-         * Gets a Chronicle SLF4J logger for the specified class.
+         * Gets a Rivet SLF4J logger for the specified class.
          */
         public static Logger getLogger(Class<?> clazz) {
-            return new ChronicleSLF4JLogger(clazz.getName());
+            return new RivetSLF4JLogger(clazz.getName());
         }
         
         /**
-         * Gets a Chronicle SLF4J logger for the specified name.
+         * Gets a Rivet SLF4J logger for the specified name.
          */
         public static Logger getLogger(String name) {
-            return new ChronicleSLF4JLogger(name);
+            return new RivetSLF4JLogger(name);
         }
     }
 }
