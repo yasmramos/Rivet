@@ -1,6 +1,6 @@
-package com.chronicle.logging.core;
+package io.github.yasmramos.rivet.logging.core;
 
-import com.chronicle.logging.config.LogLevel;
+import io.github.yasmramos.rivet.logging.config.LogLevel;
 
 import java.time.Instant;
 import java.util.Map;

@@ -1,11 +1,11 @@
-package com.chronicle.logging.api;
+package io.github.yasmramos.rivet.logging.api;
 
-import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.config.RivetConfiguration;
-import com.chronicle.logging.core.LogEntry;
-import com.chronicle.logging.util.JsonFormatter;
-import com.chronicle.logging.util.TimestampProvider;
-import com.chronicle.logging.util.ThreadContext;
+import io.github.yasmramos.rivet.logging.config.LogLevel;
+import io.github.yasmramos.rivet.logging.config.RivetConfiguration;
+import io.github.yasmramos.rivet.logging.core.LogEntry;
+import io.github.yasmramos.rivet.logging.util.JsonFormatter;
+import io.github.yasmramos.rivet.logging.util.TimestampProvider;
+import io.github.yasmramos.rivet.logging.util.ThreadContext;
 
 import java.time.Instant;
 import java.time.ZoneId;

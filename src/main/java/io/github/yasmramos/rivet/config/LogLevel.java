@@ -1,7 +1,7 @@
-package com.chronicle.logging.config;
+package io.github.yasmramos.rivet.logging.config;
 
 /**
- * Log levels supported by Chronicle.
+ * Log levels supported by Rivet.
  * Ordered from most verbose (TRACE) to most critical (ERROR).
  */
 public enum LogLevel {

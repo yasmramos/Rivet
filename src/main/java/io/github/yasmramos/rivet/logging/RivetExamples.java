@@ -1,10 +1,10 @@
-package com.chronicle.logging;
+package io.github.yasmramos.rivet.logging;
 
-import com.chronicle.logging.api.RivetChapter;
-import com.chronicle.logging.bridge.RivetSLF4JLogger;
-import com.chronicle.logging.config.RivetConfiguration;
-import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.core.Rivet;
+import io.github.yasmramos.rivet.logging.api.RivetChapter;
+import io.github.yasmramos.rivet.logging.bridge.RivetSLF4JLogger;
+import io.github.yasmramos.rivet.logging.config.RivetConfiguration;
+import io.github.yasmramos.rivet.logging.config.LogLevel;
+import io.github.yasmramos.rivet.logging.core.Rivet;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

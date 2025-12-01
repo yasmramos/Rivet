@@ -1,4 +1,4 @@
-package com.chronicle.logging.api;
+package io.github.yasmramos.rivet.logging.api;
 
 /**
  * Interface for log output destinations.

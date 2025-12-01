@@ -1,4 +1,4 @@
-package com.chronicle.logging.util;
+package io.github.yasmramos.rivet.logging.util;
 
 import java.time.Clock;
 import java.time.Instant;

@@ -1,8 +1,8 @@
-package com.chronicle.logging.api;
+package io.github.yasmramos.rivet.logging.api;
 
-import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.core.Rivet;
-import com.chronicle.logging.util.ThreadContext;
+import io.github.yasmramos.rivet.logging.config.LogLevel;
+import io.github.yasmramos.rivet.logging.core.Rivet;
+import io.github.yasmramos.rivet.logging.util.ThreadContext;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;

@@ -1,7 +1,7 @@
-package com.chronicle.logging.api;
+package io.github.yasmramos.rivet.logging.api;
 
-import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.util.TimestampProvider;
+import io.github.yasmramos.rivet.logging.config.LogLevel;
+import io.github.yasmramos.rivet.logging.util.TimestampProvider;
 
 import java.time.Duration;
 import java.time.Instant;

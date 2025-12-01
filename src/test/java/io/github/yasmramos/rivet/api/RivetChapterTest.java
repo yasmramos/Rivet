@@ -1,9 +1,9 @@
-package com.chronicle.logging.api;
+package io.github.yasmramos.rivet.logging.api;
 
-import com.chronicle.logging.bridge.RivetSLF4JLogger;
-import com.chronicle.logging.config.RivetConfiguration;
-import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.core.Rivet;
+import io.github.yasmramos.rivet.logging.bridge.RivetSLF4JLogger;
+import io.github.yasmramos.rivet.logging.config.RivetConfiguration;
+import io.github.yasmramos.rivet.logging.config.LogLevel;
+import io.github.yasmramos.rivet.logging.core.Rivet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

@@ -1,10 +1,10 @@
-package com.chronicle.logging.core;
+package io.github.yasmramos.rivet.logging.core;
 
-import com.chronicle.logging.api.RivetLogger;
-import com.chronicle.logging.config.RivetConfiguration;
-import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.util.JsonFormatter;
-import com.chronicle.logging.util.ThreadContext;
+import io.github.yasmramos.rivet.logging.api.RivetLogger;
+import io.github.yasmramos.rivet.logging.config.RivetConfiguration;
+import io.github.yasmramos.rivet.logging.config.LogLevel;
+import io.github.yasmramos.rivet.logging.util.JsonFormatter;
+import io.github.yasmramos.rivet.logging.util.ThreadContext;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;

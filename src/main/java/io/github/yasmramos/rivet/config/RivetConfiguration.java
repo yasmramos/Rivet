@@ -1,6 +1,6 @@
-package com.chronicle.logging.config;
+package io.github.yasmramos.rivet.logging.config;
 
-import com.chronicle.logging.api.LogSink;
+import io.github.yasmramos.rivet.logging.api.LogSink;
 
 import java.time.ZoneId;
 import java.util.ArrayList;

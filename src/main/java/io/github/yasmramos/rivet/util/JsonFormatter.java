@@ -1,7 +1,7 @@
-package com.chronicle.logging.util;
+package io.github.yasmramos.rivet.logging.util;
 
-import com.chronicle.logging.config.RivetConfiguration;
-import com.chronicle.logging.core.LogEntry;
+import io.github.yasmramos.rivet.logging.config.RivetConfiguration;
+import io.github.yasmramos.rivet.logging.core.LogEntry;
 import org.json.JSONArray;
 import org.json.JSONObject;
 

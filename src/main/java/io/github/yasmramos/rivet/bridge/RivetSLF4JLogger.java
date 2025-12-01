@@ -1,8 +1,8 @@
-package com.chronicle.logging.bridge;
+package io.github.yasmramos.rivet.logging.bridge;
 
-import com.chronicle.logging.api.RivetLogger;
-import com.chronicle.logging.config.LogLevel;
-import com.chronicle.logging.core.Rivet;
+import io.github.yasmramos.rivet.logging.api.RivetLogger;
+import io.github.yasmramos.rivet.logging.config.LogLevel;
+import io.github.yasmramos.rivet.logging.core.Rivet;
 import org.slf4j.Logger;
 import org.slf4j.Marker;
 import org.slf4j.helpers.MessageFormatter;
