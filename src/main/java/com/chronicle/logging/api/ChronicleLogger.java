@@ -29,7 +29,8 @@ public class ChronicleLogger {
         this.configuration = configuration;
         this.jsonFormatter = new JsonFormatter(configuration);
         this.timestampProvider = new TimestampProvider(configuration.getTimezone());
-        this.threadContext = new ThreadContext();
+        // Use the singleton thread context for proper context sharing
+        this.threadContext = ThreadContext.get();
     }
     
     /**

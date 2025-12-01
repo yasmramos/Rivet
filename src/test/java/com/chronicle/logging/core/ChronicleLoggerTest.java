@@ -27,8 +27,9 @@ class ChronicleLoggerTest {
     @BeforeEach
     void setUp() {
         config = new ChronicleConfiguration();
-        config.setMinLevel(LogLevel.DEBUG);
+        config.setMinLevel(LogLevel.TRACE); // Enable all levels for testing
         config.setPrettyPrint(true);
+        config.setDebugToConsole(false); // Disable console output for tests
         
         formatter = new JsonFormatter(config);
         logger = new ChronicleLogger("test-logger", config);

@@ -1,6 +1,7 @@
 package com.chronicle.logging.api;
 
 import com.chronicle.logging.bridge.ChronicleSLF4JLogger;
+import com.chronicle.logging.config.ChronicleConfiguration;
 import com.chronicle.logging.config.LogLevel;
 import com.chronicle.logging.core.Chronicle;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,7 +23,12 @@ class ChronicleChapterTest {
     
     @BeforeEach
     void setUp() {
-        logger = new ChronicleLogger("chapter-test", null); // Will use default config
+        ChronicleConfiguration config = new ChronicleConfiguration();
+        config.setMinLevel(LogLevel.DEBUG);
+        config.setPrettyPrint(false);
+        config.setDebugToConsole(false); // Disable console output for tests
+        
+        logger = new ChronicleLogger("chapter-test", config);
     }
     
     @Test
