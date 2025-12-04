@@ -78,9 +78,9 @@ implementation 'io.github.yasmramos:rivet-logging:1.0.0'
 
 ### Basic Setup
 ```java
-import com.chronicle.logging.Rivet;
-import com.chronicle.logging.config.RivetConfiguration;
-import com.chronicle.logging.config.LogLevel;
+import io.github.yasmramos.rivet.logging.Rivet;
+import io.github.yasmramos.rivet.logging.config.RivetConfiguration;
+import io.github.yasmramos.rivet.logging.config.LogLevel;
 
 public class MyApp {
     public static void main(String[] args) {
@@ -103,10 +103,10 @@ public class MyApp {
 #### 1. Fluent API Examples
 ```java
 // Basic logging
-Chronicle.info().message("Application started").log();
+Rivet.info().message("Application started").log();
 
 // With arguments and context
-Chronicle.debug()
+Rivet.debug()
     .message("Processing request {requestId} for user {user}")
     .args("req-123", "alice")
     .context("method", "POST")
@@ -115,7 +115,7 @@ Chronicle.debug()
     .log();
 
 // Error logging with rich context
-Chronicle.error()
+Rivet.error()
     .message("Database connection failed")
     .context("host", "localhost")
     .context("port", 5432)
@@ -128,7 +128,7 @@ Chronicle.error()
 #### 2. Chapter Pattern Examples
 ```java
 // Payment processing workflow
-try (ChronicleChapter chapter = Chronicle.info().beginChapter("Payment Processing")) {
+try (RivetChapter chapter = Rivet.info().beginChapter("Payment Processing")) {
     chapter.record("validation", 
         Map.of("cardValid", true, "amount", 99.99, "currency", "EUR"));
     
@@ -143,7 +143,7 @@ try (ChronicleChapter chapter = Chronicle.info().beginChapter("Payment Processin
 }
 
 // User registration with step-by-step tracking
-try (ChronicleChapter chapter = Chronicle.debug().beginChapter("User Registration")) {
+try (RivetChapter chapter = Rivet.debug().beginChapter("User Registration")) {
     chapter.step("validate_input").withData("All required fields present");
     chapter.record("email_check", "Email not in use");
     chapter.record("password_strength", "Strong password");
@@ -155,8 +155,8 @@ try (ChronicleChapter chapter = Chronicle.debug().beginChapter("User Registratio
 #### 3. SLF4J Migration
 ```java
 // Existing SLF4J code works immediately
-Logger logger = ChronicleSLF4JLogger.Factory.getLogger(MyClass.class);
-logger.info("This uses Chronicle behind the scenes");
+Logger logger = RivetSLF4JLogger.Factory.getLogger(MyClass.class);
+logger.info("This uses Rivet behind the scenes");
 logger.debug("Debug message with arg: {}", "value");
 logger.warn("Warning: {}", warningMessage);
 logger.error("Error occurred", exception);
@@ -164,14 +164,14 @@ logger.error("Error occurred", exception);
 
 ## 🎯 API Reference
 
-### Chronicle Main Class
-- `Chronicle.info()` - Create info level logger
-- `Chronicle.debug()` - Create debug level logger  
-- `Chronicle.warn()` - Create warn level logger
-- `Chronicle.error()` - Create error level logger
-- `Chronicle.trace()` - Create trace level logger
-- `Chronicle.getLogger(String name)` - Get named logger
-- `Chronicle.forClass(Class<?> clazz)` - Get logger for class
+### Rivet Main Class
+- `Rivet.info()` - Create info level logger
+- `Rivet.debug()` - Create debug level logger  
+- `Rivet.warn()` - Create warn level logger
+- `Rivet.error()` - Create error level logger
+- `Rivet.trace()` - Create trace level logger
+- `Rivet.getLogger(String name)` - Get named logger
+- `Rivet.forClass(Class<?> clazz)` - Get logger for class
 
 ### FluentLoggerBuilder
 - `.message(String message)` - Set log message with placeholders
@@ -185,7 +185,7 @@ logger.error("Error occurred", exception);
 - `.log()` - Execute the log operation
 - `.beginChapter(String name)` - Create chapter from fluent API
 
-### ChronicleChapter
+### RivetChapter
 - `record(String step, Object data)` - Record a step
 - `records(Map<String, Object> steps)` - Record multiple steps
 - `step(String name)` - Create a step with fluent API
@@ -198,7 +198,7 @@ logger.error("Error occurred", exception);
 ## ⚙️ Configuration
 
 ```java
-ChronicleConfiguration config = ChronicleConfiguration.Builder.create()
+RivetConfiguration config = RivetConfiguration.Builder.create()
     .minLevel(LogLevel.INFO)           // Minimum log level
     .prettyPrint(true)                 // Pretty print JSON
     .includeHostname(true)             // Include hostname
@@ -213,12 +213,12 @@ ChronicleConfiguration config = ChronicleConfiguration.Builder.create()
 
 ## 🏗️ Architecture
 
-Chronicle is built with a modular architecture:
+Rivet is built with a modular architecture:
 
-- **Core**: Main Chronicle class and LogEntry management
-- **API**: FluentLoggerBuilder, ChronicleChapter, ChronicleLogger
+- **Core**: Main Rivet class and LogEntry management
+- **API**: FluentLoggerBuilder, RivetChapter, RivetLogger
 - **Bridge**: SLF4J compatibility layer
-- **Config**: ChronicleConfiguration and LogLevel management
+- **Config**: RivetConfiguration and LogLevel management
 - **Util**: JsonFormatter, TimestampProvider, ThreadContext
 - **Sinks**: Pluggable output destinations
 
@@ -239,7 +239,7 @@ mvn test
 
 Run benchmarks:
 ```bash
-mvn test -Dtest=ChronicleBenchmarks
+mvn test -Dtest=RivetBenchmarks
 ```
 
 ## 🔧 Advanced Usage
@@ -270,7 +270,7 @@ ThreadContext.get().put("userId", "12345");
 ThreadContext.get().putTag("requestId", "req-456");
 
 // All subsequent logs include this context
-Chronicle.info().message("Operation completed").log();
+Rivet.info().message("Operation completed").log();
 
 // Clear context when done
 ThreadContext.clearAll();
@@ -278,7 +278,7 @@ ThreadContext.clearAll();
 
 ## 📊 Benchmark Results
 
-Chronicle is designed for high performance. On typical hardware:
+Rivet is designed for high performance. On typical hardware:
 
 - **Basic logging**: ~200-500 nanoseconds
 - **Logging with context**: ~500-1000 nanoseconds  
