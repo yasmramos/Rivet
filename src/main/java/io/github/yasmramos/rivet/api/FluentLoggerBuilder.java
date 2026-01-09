@@ -145,14 +145,6 @@ public class FluentLoggerBuilder {
         loggerToUse.log(level, message, context, tags, args.toArray(new Object[0]));
     }
     
-    /**
-     * Creates a new RivetChapter for chapter-based logging.
-     * This is the bridge between fluent API and chapter pattern.
-     */
-    public RivetChapter beginChapter(String chapterName) {
-        return new RivetChapter(chapterName, getLogger(), level, message, args.toArray(new Object[0]), context, tags);
-    }
-    
     private RivetLogger getLogger() {
         if (logger != null) {
             return logger;

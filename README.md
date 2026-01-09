@@ -1,8 +1,8 @@
 # Rivet Logging Library
 
-**High-performance logging library with fluent API and chapter-based narratives for Java 11+**
+**High-performance logging library with fluent API for Java 11+**
 
-Rivet is a modern logging library that combines the performance of established logging frameworks with an innovative fluent API and narrative logging capabilities through the "chapter" pattern.
+Rivet is a modern logging library that combines the performance of established logging frameworks with an innovative fluent API for structured logging.
 
 ## 🚀 Key Features
 
@@ -18,23 +18,13 @@ Rivet.info()
     .log();
 ```
 
-### 2. **Chapter Pattern** - Narrative logging with automatic timing
-```java
-try (RivetChapter chapter = Rivet.beginChapter("Payment Processing")) {
-    chapter.record("validation", validationDetails);
-    chapter.record("processing", paymentDetails);
-    chapter.record("confirmation", confirmationDetails);
-    // Automatic timing and summary logging on close
-}
-```
-
-### 3. **SLF4J Bridge** - Seamless migration
+### 2. **SLF4J Bridge** - Seamless migration
 ```java
 Logger slf4jLogger = RivetSLF4JLogger.Factory.getLogger(MyClass.class);
 slf4jLogger.info("Using Rivet as SLF4J backend"); // No code changes needed!
 ```
 
-### 4. **JSON Output** - Structured logging by default
+### 3. **JSON Output** - Structured logging by default
 ```json
 {
   "@timestamp": "2024-12-02T10:30:00.123Z",
@@ -125,34 +115,7 @@ Rivet.error()
     .log();
 ```
 
-#### 2. Chapter Pattern Examples
-```java
-// Payment processing workflow
-try (RivetChapter chapter = Rivet.info().beginChapter("Payment Processing")) {
-    chapter.record("validation", 
-        Map.of("cardValid", true, "amount", 99.99, "currency", "EUR"));
-    
-    chapter.step("gateway_check").withData("Payment gateway available");
-    
-    chapter.record("processing", 
-        Map.of("gateway", "Stripe", "transactionId", "txn-123"));
-    
-    chapter.context("paymentMethod", "credit_card");
-    chapter.context("customerId", "cust-789");
-    // Automatic logging of timing and summary on close
-}
-
-// User registration with step-by-step tracking
-try (RivetChapter chapter = Rivet.debug().beginChapter("User Registration")) {
-    chapter.step("validate_input").withData("All required fields present");
-    chapter.record("email_check", "Email not in use");
-    chapter.record("password_strength", "Strong password");
-    chapter.record("profile_creation", "Profile created successfully");
-    chapter.record("welcome_email", "Welcome email sent");
-}
-```
-
-#### 3. SLF4J Migration
+#### 2. SLF4J Migration
 ```java
 // Existing SLF4J code works immediately
 Logger logger = RivetSLF4JLogger.Factory.getLogger(MyClass.class);
@@ -183,17 +146,6 @@ logger.error("Error occurred", exception);
 - `.tags(Map<String, String> tags)` - Add multiple tags
 - `.loggerName(String name)` - Set logger name
 - `.log()` - Execute the log operation
-- `.beginChapter(String name)` - Create chapter from fluent API
-
-### RivetChapter
-- `record(String step, Object data)` - Record a step
-- `records(Map<String, Object> steps)` - Record multiple steps
-- `step(String name)` - Create a step with fluent API
-- `context(String key, Object value)` - Add context
-- `tag(String tag, String value)` - Add tag
-- `getElapsedTime()` - Get elapsed time
-- `getChapterName()` - Get chapter name
-- `close()` - Complete chapter (automatic logging)
 
 ## ⚙️ Configuration
 
@@ -216,7 +168,7 @@ RivetConfiguration config = RivetConfiguration.Builder.create()
 Rivet is built with a modular architecture:
 
 - **Core**: Main Rivet class and LogEntry management
-- **API**: FluentLoggerBuilder, RivetChapter, RivetLogger
+- **API**: FluentLoggerBuilder, RivetLogger
 - **Bridge**: SLF4J compatibility layer
 - **Config**: RivetConfiguration and LogLevel management
 - **Util**: JsonFormatter, TimestampProvider, ThreadContext
@@ -235,11 +187,6 @@ Rivet is built with a modular architecture:
 Run tests:
 ```bash
 mvn test
-```
-
-Run benchmarks:
-```bash
-mvn test -Dtest=RivetBenchmarks
 ```
 
 ## 🔧 Advanced Usage
@@ -281,8 +228,7 @@ ThreadContext.clearAll();
 Rivet is designed for high performance. On typical hardware:
 
 - **Basic logging**: ~200-500 nanoseconds
-- **Logging with context**: ~500-1000 nanoseconds  
-- **Chapter creation**: ~50-100 nanoseconds
+- **Logging with context**: ~500-1000 nanoseconds
 - **JSON serialization**: ~1-2 microseconds
 
 ## 🤝 Contributing
